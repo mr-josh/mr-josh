@@ -12,7 +12,7 @@ scoreboard_router = APIRouter()
 
 
 @scoreboard_router.put("/person")
-async def add_player(person: Person):
+async def add_player(person: Person, _=Depends(this_user)):
     result = await mjdbc["Person"].insert_one(
         {
             **person.dict(exclude_none=True),
@@ -24,7 +24,7 @@ async def add_player(person: Person):
 
 
 @scoreboard_router.get("/people")
-async def get_people(page: int = 0, size: int = 100):
+async def get_people(page: int = 0, size: int = 100, _=Depends(this_user)):
     _people = (
         await mjdbc["Person"]
         .find({})
@@ -49,7 +49,7 @@ async def get_people(page: int = 0, size: int = 100):
 
 
 @scoreboard_router.put("/score")
-async def add_score(score: Score):
+async def add_score(score: Score, _=Depends(this_user)):
     _score = score.dict()
     _score["person"] = ObjectId(_score["person"])
 
