@@ -10,7 +10,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost",
         "http://localhost:3000",
-        "https://mr-josh.com",
+        "https://www.mr-josh.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
