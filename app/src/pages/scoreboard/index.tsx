@@ -1,6 +1,7 @@
 import { For, createSignal } from "solid-js";
 
 import Auth from "./auth";
+import ENDPOINT from "api/endpoint";
 import Guest from "./guest";
 import { getTokens } from "auth/instance";
 import style from "./style.module.css";
@@ -24,7 +25,7 @@ const ScoreboardPage = () => {
       endpoint = "scoreboard/score";
     }
 
-    let request = await fetch(`http://localhost:8000/${endpoint}`, {
+    let request = await fetch(`${ENDPOINT}/${endpoint}`, {
       headers: {
         Authorization: `Bearer ${tokens?.accessToken}`,
       },
