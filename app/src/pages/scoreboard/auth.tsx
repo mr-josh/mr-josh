@@ -1,7 +1,7 @@
 import { For, createSignal } from "solid-js";
+import { getTokens, logoutRedirect } from "auth/instance";
 
 import ENDPOINT from "api/endpoint";
-import { logoutRedirect } from "auth/instance";
 import style from "./style.module.css";
 
 const Auth = () => {
@@ -21,10 +21,88 @@ const Auth = () => {
     dialogRef?.showModal();
   };
 
+  const openNewPersonDialog = async () => {
+    let tokens = await getTokens();
+    if (!tokens?.accessToken) {
+      console.error("No access token");
+      return;
+    }
+
+    setActiveDialog(
+      <dialog class={style.dialog} ref={dialogRef} hidden={true}>
+        <h3>Add score</h3>
+        <div class={style.field}>
+          <label for="name">Display Name</label>
+          <input id="name" type="text" name="name" required />
+        </div>
+        <div class={style.field}>
+          <label for="f-name">Full Name</label>
+          <input id="f-name" type="text" name="f-name" />
+        </div>
+        <div class={style.row}>
+          <div class={style.field}>
+            <label for="bt">Bracket tip</label>
+            <input id="bt" type="text" name="bt" />
+          </div>
+          <div class={style.field}>
+            <label for="kf">Known from</label>
+            <input id="kf" type="text" name="kf" />
+          </div>
+        </div>
+        <button type="submit">Submit</button>
+      </dialog>
+    );
+
+    dialogRef
+      ?.querySelector("button[type='submit']")
+      ?.addEventListener("click", async () => {
+        let tokens = await getTokens();
+        if (!tokens?.accessToken) {
+          console.error("No access token");
+          return;
+        }
+
+        let name: HTMLSelectElement | null | undefined =
+          dialogRef?.querySelector("#name");
+        let fName: HTMLInputElement | null | undefined =
+          dialogRef?.querySelector("#f-name");
+        let bracketTip: HTMLInputElement | null | undefined =
+          dialogRef?.querySelector("#bt");
+        let knownFrom: HTMLInputElement | null | undefined =
+          dialogRef?.querySelector("#kf");
+
+        await fetch(`${ENDPOINT}/scoreboard/person`, {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${tokens.accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name?.value,
+            help: {
+              name_brackets: bracketTip?.value || null,
+              known_from: knownFrom?.value || null,
+              full_name: fName?.value || null,
+            },
+          }),
+        });
+
+        setActiveDialog(null);
+      });
+
+    showDialog();
+  };
+
   const openScoreDialog = async () => {
+    let tokens = await getTokens();
+    if (!tokens?.accessToken) {
+      console.error("No access token");
+      return;
+    }
+
     let request = await fetch(`${ENDPOINT}/scoreboard/people`, {
       headers: {
-        Authorization: "",
+        "Authorization": `Bearer ${tokens.accessToken}`,
       },
     });
 
@@ -60,6 +138,12 @@ const Auth = () => {
     dialogRef
       ?.querySelector("button[type='submit']")
       ?.addEventListener("click", async () => {
+        let tokens = await getTokens();
+        if (!tokens?.accessToken) {
+          console.error("No access token");
+          return;
+        }
+        
         let person: HTMLSelectElement | null | undefined =
           dialogRef?.querySelector("#person");
         let score: HTMLInputElement | null | undefined =
@@ -72,6 +156,7 @@ const Auth = () => {
         await fetch(`${ENDPOINT}/scoreboard/score`, {
           method: "PUT",
           headers: {
+            "Authorization": `Bearer ${tokens.accessToken}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -91,7 +176,7 @@ const Auth = () => {
     <>
       {activeDialog}
       <div class={style.actions}>
-        <button>Add Person</button>
+        <button onClick={openNewPersonDialog}>Add Person</button>
         <button onClick={openScoreDialog}>Add Score</button>
       </div>
       <button class={style.loginout} onClick={logoutRedirect}>
