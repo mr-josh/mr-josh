@@ -1,0 +1,133 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  width: 20rem;
+  height: 27rem;
+  border-radius: .5rem;
+  box-shadow: 0 0 2.5rem #0002;
+}
+
+.card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card .header img {
+  position: absolute;
+  top: -2rem;
+  right: 2.5rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 9999rem;
+}
+
+.card hr {
+  width: 100%;
+  border: none;
+  border-top: 2px solid #0003;
+}
+
+.shorts {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 0;
+  width: 100%;
+  height: fit-content
+}
+
+.shorts .video {
+  position: absolute;
+  top: .5rem;
+  width: 8rem;
+  aspect-ratio: 9/16;
+  border-radius: .5rem;
+  background-color: #2a2a2a;
+  box-shadow: 0 0 .5rem #0ba3;
+  object-fit: cover;
+  transition-duration: .25s;
+  filter: blur(2px) brightness(0.5)
+}
+
+.shorts .video:nth-last-child(1) {
+  left: 0;
+  filter: unset;
+}
+
+.shorts .video:nth-last-child(2) {
+  left: 1.5rem;
+  filter: blur(1px) brightness(0.9)
+}
+
+.shorts .video:nth-last-child(3) {
+  left: 3rem;
+  filter: blur(2px) brightness(0.8)
+}
+
+.shorts .video:nth-last-child(4) {
+  left: 4.5rem;
+}
+
+.shorts .video:nth-last-child(5) {
+  left: 6rem;
+}
+
+.shorts .video:nth-last-child(6) {
+  left: 7.5rem;
+}
+
+.shorts .video:nth-last-child(7) {
+  left: 9rem;
+}
+
+.shorts .video:hover {
+  transform: translateY(-.75rem);
+  cursor: pointer;
+  filter: unset;
+}
+
+.shorts .video:not(:last-child):hover {
+  transform: translateX(5rem);
+}
+
+.card .footer {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  bottom: 1rem;
+  padding: 0 1rem;
+  width: 17rem;
+}
+
+.card .footer .link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 2rem;
+  color: rgb(84, 162, 252);
+  filter: drop-shadow(0 0 .5rem rgb(135, 211, 255));
+  transition-duration: 0.25s;
+}
+
+.card .footer .link:hover {
+  color: #fafafa;
+  filter: drop-shadow(0 0 .25rem rgb(0, 138, 218));
+  transform: scale(1.5);
+}
+
+.card .footer .link sub {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition-duration: 0.25s;
+  width: 4rem;
+}
+
+.card .footer .link:hover sub {
+  opacity: 100%;
+}

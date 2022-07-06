@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/__pycache__": true,
+    },
+    "python.formatting.provider": "black",
+    "python.analysis.extraPaths": [
+        "api/.venv/lib/python3.10/site-packages"
+    ]
+}
