@@ -9,8 +9,8 @@ const msalConfig: msal.Configuration = {
     knownAuthorities: [
       "login.microsoftonline.com",
     ],
-    redirectUri: "http://localhost:3000/",
-    postLogoutRedirectUri: "http://localhost:3000/",
+    redirectUri: import.meta.env.PROD ? "https://www.mr-josh.com/" : "http://localhost:3000/",
+    postLogoutRedirectUri: import.meta.env.PROD ? "https://www.mr-josh.com/" : "http://localhost:3000/",
     navigateToLoginRequestUrl: false
   },
 };
