@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.badges {
+  outline: none;
+  border: none;
+  width: 100vw;
+  height: 80vh;
+}

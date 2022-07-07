@@ -1,3 +1,4 @@
+import BadgesPage from "./badges";
 import HomePage from "./home";
 import ScoreboardPage from "./scoreboard";
 import { createSignal } from "solid-js";
@@ -47,9 +48,9 @@ const Router = () => {
               scoreboard
             </span>
           </button>
-          <button class={style.item} style="--rotation: 90deg;">
+          <button class={style.item} style="--rotation: 90deg;" onClick={() => changeView("badges")}>
             <span class={style.content + " material-symbols-rounded"}>
-              sync
+              verified
             </span>
           </button>
         </div>
@@ -60,6 +61,8 @@ const Router = () => {
             return <HomePage />;
           case "scoreboard":
             return <ScoreboardPage />;
+          case "badges":
+            return <BadgesPage />
         }
       }}
     </>
