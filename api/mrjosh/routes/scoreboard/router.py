@@ -97,8 +97,6 @@ async def get_scores(page: int = 0, size: int = 100, order: int = -1):
     for _score in _scores:
         _score["_id"] = str(_score["_id"])
         _score["person"] = _score["_person"][0]["name"][:1] + _score["_id"][-4:]
-        if hnb := _score["_person"][0]["help"].get("name_brackets", None):
-            _score["person"] += f" ({hnb})"
         del _score["_person"]
 
         scores.append(_score)
