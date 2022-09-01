@@ -1,0 +1,43 @@
+.card {
+  padding: 0.5rem 1rem;
+  min-width: 20rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2rem var(--shd-primary);
+
+  .header {
+    position: relative;
+    width: 100%;
+    .pp {
+      position: absolute;
+      overflow: hidden;
+      right: 0;
+      top: -4.5rem;
+      width: 7rem;
+      border-radius: 100%;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    height: 20rem;
+
+    .base {
+      $base-height: 15rem;
+      position: relative;
+      isolation: isolate;
+      height: $base-height;
+
+      .clip {
+        position: absolute;
+        width: 10rem;
+        height: $base-height;
+        object-fit: cover;
+        background-color: red;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 1rem rgba(0, 0,  0, 0.25);
+        transition-duration: .25;
+      }
+    }
+  }
+}

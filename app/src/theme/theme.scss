@@ -1,0 +1,20 @@
+:root {
+  --tx-primary: black;
+  --bg-primary: white;
+  --shd-primary: rgba(0, 0, 0, 0.075);
+  
+  @media (prefers-color-scheme: dark) {
+    --tx-primary: white;
+    --bg-primary: #2A2A2A;
+    --shd-primary: rgba(255, 255, 255, 0.075);
+  }
+}
+
+body, #root {
+  height: 100vh;
+}
+
+body {
+  color: var(--tx-primary);
+  background-color: var(--bg-primary);
+}
