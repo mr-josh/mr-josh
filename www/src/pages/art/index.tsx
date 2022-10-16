@@ -112,7 +112,8 @@ const ArtPage = () => {
 
   const { data } = useQuery<Art[]>(["art"], async () => {
     const res = await fetch("https://www.mr-josh.com/api/art");
-    return res.json();
+
+    return await res.json();
   });
 
   return (
@@ -204,16 +205,18 @@ const ArtPage = () => {
                     <div className={style.artTop}>
                       <Text>{art.title}</Text>
                       <div className={style.socials}>
-                        {art.socials.map((social, i) => (
-                          <a
-                            className={style.social}
-                            href={social}
-                            target="_blank"
-                            key={i}
-                          >
-                            <AutoLinkIcon url={social} />
-                          </a>
-                        ))}
+                        {art.socials
+                          .filter((s) => !!s)
+                          .map((social, i) => (
+                            <a
+                              className={style.social}
+                              href={social}
+                              target="_blank"
+                              key={i}
+                            >
+                              <AutoLinkIcon url={social} />
+                            </a>
+                          ))}
                       </div>
                     </div>
                     <Text size="sm">{art.creator}</Text>
