@@ -7,7 +7,7 @@ const getRequest = async (req: HttpRequest) => {
   const page = req.query.page || null;
 
   const publishedEntities = await artTableClient
-    .listEntities({ queryOptions: { filter: "Published eq true" } })
+    .listEntities({ queryOptions: { filter: "published eq true" } })
     .byPage({
       maxPageSize: limit,
       continuationToken: page,
