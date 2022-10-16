@@ -6,10 +6,11 @@ import {
   IconBrandYoutube,
   IconMessages,
 } from "@tabler/icons";
-import { useRef, useState } from "react";
 
 import { Button } from "@mantine/core";
+import { motion } from "framer-motion";
 import style from "./style.module.css";
+import { useState } from "react";
 
 const videoCards = [
   "https://mrjoshdata.blob.core.windows.net/static/assets/videos/yt-01.mp4",
@@ -29,7 +30,12 @@ const BioCard = () => {
 
   return (
     <section className={`page-container ${style.container}`}>
-      <div className={style.card}>
+      <motion.div
+        className={style.card}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1.0 }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+      >
         <div className={style.head}>
           <h1>Mr Josh</h1>
         </div>
@@ -88,21 +94,28 @@ const BioCard = () => {
             <sub>Discord</sub>
           </a>
         </div>
-      </div>
-      <Button
-        onClick={() => {
-          window.scrollTo(
-            0,
-            document.querySelector("#root > section:nth-child(1)")!.clientHeight
-          );
-        }}
+      </motion.div>
+      <motion.div
+        initial={{ translateY: 100 }}
+        animate={{ translateY: 0 }}
+        transition={{ delay: 0.5 }}
         className={style.scroll}
-        variant="outline"
-        radius="xl"
-        color="yellow"
       >
-        <IconArrowDown />
-      </Button>
+        <Button
+          onClick={() => {
+            window.scrollTo(
+              0,
+              document.querySelector("#root > section:nth-child(1)")!
+                .clientHeight
+            );
+          }}
+          variant="outline"
+          radius="xl"
+          color="yellow"
+        >
+          <IconArrowDown />
+        </Button>
+      </motion.div>
     </section>
   );
 };
