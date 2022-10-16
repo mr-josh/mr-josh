@@ -23,6 +23,7 @@
 }
 
 .page-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: calc(100vw - var(--scrollbarWidth));
