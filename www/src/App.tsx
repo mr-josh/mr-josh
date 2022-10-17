@@ -25,12 +25,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <MantineProvider withCSSVariables theme={{ colorScheme: "dark" }}>
         <NotificationsProvider>
-          <BioCard />
+          <BioCard
+            style={{
+              height: path.pathname == "/" ? undefined : 0,
+            }}
+          />
           <section className="page-container" style={{ padding: "2rem" }}>
             <div className="dashboard">
               <nav>
                 <Link to="/" className={path.pathname == "/" ? "active" : ""}>
-                  <IconHome size="2.25rem" />
+                  <IconHome />
                   <sub>Home</sub>
                 </Link>
                 <Divider />
@@ -38,7 +42,7 @@ const App = () => {
                   to="/art"
                   className={path.pathname == "/art" ? "active" : ""}
                 >
-                  <IconPalette size="2.25rem" />
+                  <IconPalette />
                   <sub>Art</sub>
                 </Link>
               </nav>

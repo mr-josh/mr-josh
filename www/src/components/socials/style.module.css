@@ -1,0 +1,11 @@
+.socials > .social {
+  color: var(--mantine-color-yellow-3);
+  transition-property: translate;
+  transition-duration: 0.2s;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.socials > .social:hover {
+  translate: 0 -0.1rem;
+}

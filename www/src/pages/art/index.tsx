@@ -16,6 +16,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 
 import AutoLinkIcon from "components/auto-link-icon";
 import { IconUpload } from "@tabler/icons";
+import Socials from "components/socials";
 import { showNotification } from "@mantine/notifications";
 import style from "./style.module.css";
 import { useForm } from "@mantine/form";
@@ -50,7 +51,17 @@ const fileToBase64 = (file: File) => {
 
 const ArtPage = () => {
   const [openedImage, setOpenedImage] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState<{
+    title: string;
+    creator: string;
+    socials: string[];
+    url: string;
+  }>({
+    title: "",
+    creator: "",
+    socials: [],
+    url: "",
+  });
 
   const [openedUpload, setOpenedUpload] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -66,7 +77,12 @@ const ArtPage = () => {
     },
   });
 
-  const openImage = (image: string) => {
+  const openImage = (image: {
+    title: string;
+    creator: string;
+    socials: string[];
+    url: string;
+  }) => {
     setSelectedImage(image);
     setOpenedImage(true);
   };
@@ -119,12 +135,16 @@ const ArtPage = () => {
   return (
     <>
       <Modal
-        title="Oh wow, pretty art!"
+        title={`${selectedImage.title} - ${selectedImage.creator}`}
         opened={openedImage}
         onClose={() => setOpenedImage(false)}
         centered
       >
-        <Image src={selectedImage} />
+        <Image src={selectedImage.url} />
+        <Space h="md" />
+        <Group position="right">
+          <Socials socials={selectedImage.socials} />
+        </Group>
       </Modal>
       <Modal
         title="Upload Art"
@@ -197,27 +217,21 @@ const ArtPage = () => {
                     <Card.Section
                       component="a"
                       className={style.artPreview}
-                      onClick={() => openImage(art.url)}
+                      onClick={() =>
+                        openImage({
+                          title: art.title,
+                          creator: art.creator,
+                          socials: art.socials,
+                          url: art.url,
+                        })
+                      }
                     >
                       <Image src={art.url} alt={art.title} height="14rem" />
                     </Card.Section>
                     <Space h="md" />
                     <div className={style.artTop}>
                       <Text>{art.title}</Text>
-                      <div className={style.socials}>
-                        {art.socials
-                          .filter((s) => !!s)
-                          .map((social, i) => (
-                            <a
-                              className={style.social}
-                              href={social}
-                              target="_blank"
-                              key={i}
-                            >
-                              <AutoLinkIcon url={social} />
-                            </a>
-                          ))}
-                      </div>
+                      <Socials socials={art.socials} />
                     </div>
                     <Text size="sm">{art.creator}</Text>
                   </Card>

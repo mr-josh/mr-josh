@@ -21,7 +21,7 @@ const videoCards = [
   "https://mrjoshdata.blob.core.windows.net/static/assets/videos/yt-06.mp4",
 ];
 
-const BioCard = () => {
+const BioCard = (props: { style?: React.CSSProperties }) => {
   const [activeCard, setActiveCard] = useState(0);
 
   const onClipHover = (i: number) => {
@@ -29,7 +29,10 @@ const BioCard = () => {
   };
 
   return (
-    <section className={`page-container ${style.container}`}>
+    <section
+      className={`page-container ${style.container}`}
+      style={props.style}
+    >
       <motion.div
         className={style.card}
         initial={{ opacity: 0, scale: 0.8 }}

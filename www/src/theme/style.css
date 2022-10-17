@@ -78,6 +78,30 @@
   }
 }
 
+.dashboard > nav > a > svg {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard > nav {
+    padding: 0.5rem;
+  }
+
+  .dashboard > nav > a {
+    width: 3rem;
+  }
+
+  .dashboard > nav > a > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .dashboard > nav > a > sub {
+    display: none;
+  }
+}
+
 .dashboard > .content {
   display: flex;
   flex-direction: column;

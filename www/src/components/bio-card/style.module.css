@@ -2,6 +2,8 @@
 .container {
   justify-content: center;
   align-items: center;
+  transition-property: height;
+  transition-duration: 0.25s;
 }
 
 .container hr {
