@@ -30,7 +30,7 @@ const App = () => {
               height: path.pathname == "/" ? undefined : 0,
             }}
           />
-          <section className="page-container" style={{ padding: "2rem" }}>
+          <section className="page-container" style={{ padding: "2%" }}>
             <div className="dashboard">
               <nav>
                 <Link to="/" className={path.pathname == "/" ? "active" : ""}>
