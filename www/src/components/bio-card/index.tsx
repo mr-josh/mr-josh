@@ -4,7 +4,6 @@ import {
   IconBrandTiktok,
   IconBrandTwitch,
   IconBrandYoutube,
-  IconMessages,
 } from "@tabler/icons";
 
 import { Button } from "@mantine/core";
@@ -91,10 +90,6 @@ const BioCard = (props: { style?: React.CSSProperties }) => {
           <a href="https://www.twitch.tv/dotmrjosh" target="_blank">
             <IconBrandTwitch />
             <sub>Twitch</sub>
-          </a>
-          <a href="https://discord.gg/zXrHEH3tg9" target="_blank">
-            <IconMessages />
-            <sub>Discord</sub>
           </a>
         </div>
       </motion.div>
