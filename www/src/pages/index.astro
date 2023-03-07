@@ -1,0 +1,60 @@
+---
+import Layout from "layouts/center-splash.astro";
+import Stars from "components/stars";
+---
+
+<Layout title="mr-josh">
+  <!-- Stars -->
+  <!--
+    TODO: Interactivity
+    Desktop: Move stars around cursor
+    Mobile: Move stars on device motion (https://developer.mozilla.org/en-US/docs/Web/API/Window/devicemotion_event)
+  -->
+  <div
+    id="stars"
+    class="absolute left-0 top-0 w-full h-full overflow-hidden isolate -z-10 pointer-events-none"
+  >
+    <Stars client:idle />
+  </div>
+
+  <!-- Header -->
+  <div class="relative h-full w-full max-w-6xl">
+    <h1 class="absolute top-1/3 left-3 text-6xl font-bold">mr-josh</h1>
+  </div>
+</Layout>
+<style>
+  :root {
+    --fade-speed: 3s;
+  }
+
+  #root,
+  body {
+    color: white;
+
+    background: black;
+    animation: fade-bg var(--fade-speed) ease-in-out normal forwards;
+  }
+
+  @keyframes fade-bg {
+    from {
+      background: black;
+    }
+    to {
+      background: #1a1a2a;
+    }
+  }
+
+  #stars {
+    color: #ffffaf;
+    animation: fade-stars var(--fade-speed) ease-in-out normal forwards;
+  }
+
+  @keyframes fade-stars {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

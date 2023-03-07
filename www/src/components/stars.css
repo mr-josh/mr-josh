@@ -1,0 +1,42 @@
+.star {
+  animation: twinkle 2s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+.v-1 {
+  animation-duration: 1.5s;
+  animation-delay: 0.3s;
+}
+
+.v-2 {
+  animation-duration: 2s;
+  animation-delay: 8s;
+  filter: hue-rotate(90deg) blur(1px);
+}
+
+.v-3 {
+  animation-duration: 3s;
+  animation-delay: 1.1s;
+  filter: hue-rotate(180deg) blur(1px);
+}
+
+.v-4 {
+  animation-duration: 5s;
+  animation-delay: 1.4s;
+  filter: hue-rotate(270deg) blur(1px);
+}
+
+@keyframes twinkle {
+  0% {
+    scale: 1;
+    opacity: 0.5;
+  }
+  50% {
+    scale: 1.2;
+    opacity: 1;
+  }
+  100% {
+    scale: 1;
+    opacity: 0.5;
+  }
+}
