@@ -22,7 +22,10 @@ async def main(msg: func.ServiceBusMessage):
         logging.exception(e)
         return
 
-    sim = PlinkoSimulation(ball_count=request.amount)
+    sim = PlinkoSimulation(
+        ball_count=request.amount,
+        **request.config.dict(),
+    )
 
     # Run the simulation
     f = BytesIO()
@@ -85,8 +88,8 @@ async def main(msg: func.ServiceBusMessage):
                         "balls": {
                             "radius": sim.ball_radius,
                             "amount": request.amount,
-                        }
-                    }
+                        },
+                    },
                 },
                 session=s,
             )
@@ -103,7 +106,6 @@ async def main(msg: func.ServiceBusMessage):
                 {"$set": {"sim": blob.url}},
                 session=s,
             )
-    
+
     # Clean up
     f.close()
-
