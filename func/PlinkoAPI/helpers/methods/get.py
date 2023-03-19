@@ -20,10 +20,12 @@ async def plinko_get(req: HttpRequest):
     )
 
     if not latest:
-        return HttpResponse("No new data", status_code=204)
+        return HttpResponse(
+            status_code=204,
+        )
 
     blob = fsc.get_blob_client(latest["sim"])
     url = generate_sas_url(blob)
     latest["sim"] = url
 
-    return HttpResponse(dumps(latest), status_code=200)
+    return HttpResponse(dumps(latest), status_code=200, mimetype="application/json")
