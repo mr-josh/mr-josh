@@ -16,6 +16,7 @@ class PlinkoSimulation:
     peg_rows: int
     pegs_per_row: int
     win_width: int
+    remove_wins: bool
 
     def peg_pos(self, row: int, peg: int) -> tuple[float, float]:
         x_gap_size = SPACE_SIZE / self.pegs_per_row
@@ -36,6 +37,7 @@ class PlinkoSimulation:
         pegs_per_row: int = 20,
         peg_radius: int = 10,
         win_width: int = 100,
+        remove_wins: bool = True,
     ):
         self.space = Space()
         self.space.gravity = 0, -300
@@ -45,6 +47,7 @@ class PlinkoSimulation:
         self.pegs_per_row = pegs_per_row
         self.peg_radius = peg_radius
         self.win_width = win_width
+        self.remove_wins = remove_wins
 
         self.pegs = []
         self.balls = []
@@ -97,6 +100,10 @@ class PlinkoSimulation:
             if ball.body.position.y < -SPACE_SIZE - 20 and ball not in self.scored:
                 if self.check_scored(ball):
                     self.scored.append(ball)
+                    
+                    if self.remove_wins:
+                        self.space.remove(ball, ball.body)
+                        to_remove.append(ball)
                     continue
 
         for ball in to_remove:

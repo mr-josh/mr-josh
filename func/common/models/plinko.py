@@ -13,6 +13,7 @@ class Config(BaseModel):
     pegs_per_row: int = 20
     peg_radius: int = 10
     win_width: int = 100
+    remove_wins: bool = True
 
 
 class Request(BaseModel):
