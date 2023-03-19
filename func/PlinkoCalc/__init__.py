@@ -109,3 +109,5 @@ async def main(msg: func.ServiceBusMessage):
 
     # Clean up
     f.close()
+
+    logging.info("Successfully ran simulation")
