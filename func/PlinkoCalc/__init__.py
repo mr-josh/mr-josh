@@ -70,7 +70,7 @@ async def main(msg: func.ServiceBusMessage):
     async with await dbc.start_session() as s:
         async with s.start_transaction():
             # Save the simulation
-            record = await dbc["simulations"].insert_one(
+            record = await dbc["Dots"]["Plinko"].insert_one(
                 {
                     "user": request.user.dict(),
                     "amount": request.amount,
@@ -86,7 +86,7 @@ async def main(msg: func.ServiceBusMessage):
             )
 
             # Update the record with the blob url
-            await dbc["simulations"].update_one(
+            await dbc["Dots"]["Plinko"].update_one(
                 {"_id": record.inserted_id},
                 {"$set": {"sim": blob.url}},
                 session=s,
