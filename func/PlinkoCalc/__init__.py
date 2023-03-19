@@ -25,46 +25,47 @@ async def main(msg: func.ServiceBusMessage):
     sim = PlinkoSimulation(ball_count=request.amount)
 
     # Run the simulation
-    with BytesIO() as f:
-        # Write an unsigned 32-bit integer for the number of pegs
-        total_pegs = len(sim.pegs)
-        f.write(struct.pack("I", total_pegs))
+    f = BytesIO()
 
-        # Write the pegs 2 32-bit floats for each peg
-        for peg in sim.pegs:
-            x = peg.body.position.x
-            y = peg.body.position.y
+    # Write an unsigned 32-bit integer for the number of pegs
+    total_pegs = len(sim.pegs)
+    f.write(struct.pack("I", total_pegs))
 
-            f.write(struct.pack("f", x))
-            f.write(struct.pack("f", y))
+    # Write the pegs 2 32-bit floats for each peg
+    for peg in sim.pegs:
+        x = peg.body.position.x
+        y = peg.body.position.y
 
-        # Calculate the frames
-        frames = []
-        frame_count = 0
-        while len(sim.balls) > 0 and frame_count < 3000:
-            frames.append(sim.step())
+        f.write(struct.pack("f", x))
+        f.write(struct.pack("f", y))
 
-            frame_count += 1
+    # Calculate the frames
+    frames = []
+    frame_count = 0
+    while len(sim.balls) > 0 and frame_count < 3000:
+        frames.append(sim.step())
 
-        if frame_count == 3000:
-            print("Simulation timed out")
+        frame_count += 1
 
-        logging.info(
-            f"{request.user.label} Scored: {len(sim.scored)} out of {request.amount} "
-            f"({len(sim.scored) / request.amount * 100}%)"
-        )
+    if frame_count == 3000:
+        print("Simulation timed out")
 
-        # Write an unsigned 32-bit integer for the number of frames
-        f.write(struct.pack("I", len(frames)))
+    logging.info(
+        f"{request.user.label} Scored: {len(sim.scored)} out of {request.amount} "
+        f"({len(sim.scored) / request.amount * 100}%)"
+    )
 
-        # Write the frames
-        for frame in frames:
-            # Write an unsigned 32-bit integer for the number of balls in this frame
-            f.write(struct.pack("I", len(frame)))
+    # Write an unsigned 32-bit integer for the number of frames
+    f.write(struct.pack("I", len(frames)))
 
-            for ball in frame:
-                f.write(struct.pack("f", ball["x"]))
-                f.write(struct.pack("f", ball["y"]))
+    # Write the frames
+    for frame in frames:
+        # Write an unsigned 32-bit integer for the number of balls in this frame
+        f.write(struct.pack("I", len(frame)))
+
+        for ball in frame:
+            f.write(struct.pack("f", ball["x"]))
+            f.write(struct.pack("f", ball["y"]))
 
     # Start a mongo transaction to save the simulation
     async with await dbc.start_session() as s:
@@ -91,3 +92,7 @@ async def main(msg: func.ServiceBusMessage):
                 {"$set": {"sim": blob.url}},
                 session=s,
             )
+    
+    # Clean up
+    f.close()
+
