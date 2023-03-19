@@ -97,7 +97,6 @@ class PlinkoSimulation:
             if ball.body.position.y < -SPACE_SIZE - 20 and ball not in self.scored:
                 if self.check_scored(ball):
                     self.scored.append(ball)
-                    to_remove.append(ball)
                     continue
 
         for ball in to_remove:
