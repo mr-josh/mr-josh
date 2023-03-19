@@ -51,7 +51,7 @@ async def main(msg: func.ServiceBusMessage):
         frame_count += 1
 
     if frame_count == 3000:
-        print("Simulation timed out")
+        logging.warning("Simulation timed out")
 
     logging.info(
         f"{request.user.label} Scored: {len(sim.scored)} out of {request.amount} "
