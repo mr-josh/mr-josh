@@ -74,8 +74,19 @@ async def main(msg: func.ServiceBusMessage):
             record = await dbc["Dots"]["Plinko"].insert_one(
                 {
                     "user": request.user.dict(),
-                    "amount": request.amount,
                     "scored": len(sim.scored),
+                    "config": {
+                        "win_width": sim.win_width,
+                        "pegs": {
+                            "radius": sim.peg_radius,
+                            "rows": sim.peg_rows,
+                            "per_row": sim.pegs_per_row,
+                        },
+                        "balls": {
+                            "radius": sim.ball_radius,
+                            "amount": request.amount,
+                        }
+                    }
                 },
                 session=s,
             )

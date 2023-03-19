@@ -11,9 +11,11 @@ class PlinkoSimulation:
     balls: list[Circle]
     scored: list[Circle]
 
-    win_width: int
+    ball_radius: int
+    peg_radius: int
     peg_rows: int
     pegs_per_row: int
+    win_width: int
 
     def peg_pos(self, row: int, peg: int) -> tuple[float, float]:
         x_gap_size = SPACE_SIZE / self.pegs_per_row
@@ -30,16 +32,19 @@ class PlinkoSimulation:
         self,
         ball_count: int = 100,
         ball_radius: int = 10,
-        win_width: int = 100,
         peg_rows: int = 20,
         pegs_per_row: int = 20,
+        peg_radius: int = 10,
+        win_width: int = 100,
     ):
         self.space = Space()
         self.space.gravity = 0, -300
 
-        self.win_width = win_width
+        self.ball_radius = ball_radius
         self.peg_rows = peg_rows
         self.pegs_per_row = pegs_per_row
+        self.peg_radius = peg_radius
+        self.win_width = win_width
 
         self.pegs = []
         self.balls = []
@@ -51,7 +56,7 @@ class PlinkoSimulation:
                 body = Body(body_type=Body.KINEMATIC)
                 body.position = self.peg_pos(row, peg)
 
-                shape = Circle(body, 10)
+                shape = Circle(body, peg_radius)
                 shape.elasticity = 1
 
                 self.space.add(body, shape)
