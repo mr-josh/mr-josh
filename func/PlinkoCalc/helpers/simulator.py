@@ -1,5 +1,4 @@
 import struct
-import logging
 from random import random
 from pymunk import Space, Body, Circle
 
