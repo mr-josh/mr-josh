@@ -4,6 +4,8 @@
 
 azure-functions
 azure-servicebus
+azure-storage-blob
 motor
 dnspython
 pymunk
+pydantic
